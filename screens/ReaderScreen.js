@@ -32,10 +32,10 @@ export default class HomePage extends React.Component {
 
     async componentDidMount() {
         await Font.loadAsync({
-            'Bookerly_Regular': require('../assets/fonts/Bookerly-Regular.ttf'),
-            'Girassol_Regular': require('../assets/fonts/Girassol-Regular.ttf'),
-            'Caecilia_Regular': require('../assets/fonts/Caecilia-Regular.otf'),
-            'AnticDidone_Regular': require('../assets/fonts/AnticDidone-Regular.ttf')
+            'bookerly': require('../assets/fonts/bookerly_regular.ttf'),
+            'girassol': require('../assets/fonts/girassol_regular.ttf'),
+            'caecilia': require('../assets/fonts/caecilia_regular.otf'),
+            'antic': require('../assets/fonts/antic_regular.ttf')
         }).then(() => {
             this.setState({
                 fontLoaded: true,
@@ -60,14 +60,18 @@ export default class HomePage extends React.Component {
 
             let text_el = <Text key={i}
                 onPress={element.a && element.a_link != "" ? (() => Linking.openURL(element.a_link)) : (null)}
-                style={[article.paragraph, fonts.girassol,
-                element.a ? (article.link) : (null),
-                element.strong ? (misc.strong) : (null)]}>{element.text}{"\n\n"}</Text>
+                style={[
+                    element.a ? (article.link) : (null),
+                    // element.strong ? (misc.strong) : (null),
+                    article.paragraph, fonts.girassol
+                ]}>{element.text}{"\n\n"}</Text>
             article_body.push(text_el)
         }
 
         return article_body
     }
+
+
 
     render() {
         const dumpJson = this.state.dump_json
@@ -78,20 +82,25 @@ export default class HomePage extends React.Component {
                     <View style={main.article}>
                         <View style={main.info} >
                             <Image onPress={() => Linking.openURL(this.state.dump_json.origin)} style={info.logo} source={{ uri: dumpJson.site_image }} />
-                            {dumpJson.site_origin === "" ? (
-                                <Text style={[info.name, fonts.girassol]}></Text>
-                            ) : (
-                                    <Text style={[info.name, fonts.girassol]}>By {dumpJson.site_origin}</Text>
-                                )}
+                            {
+                                dumpJson.site_origin != "" &&
+                                <Text style={[info.name, fonts.girassol]}>By {dumpJson.site_origin}</Text>
+                            }
                         </View>
                         <View style={main.header}>
-                            <Text style={[header.title, fonts.girassol]} >{dumpJson.title}</Text>
+                            <Text style={header.title} >{dumpJson.title}</Text>
                             <Text style={[header.pre_title, fonts.girassol]} >{dumpJson.pre_title}</Text>
                         </View>
-                        <View style={main.image}>
-                            <ImageBackground style={main.bg_image} source={{ uri: dumpJson.post_image }} />
-                            <Text style={[main.keywords, fonts.girassol]}>{this.keywords_text()}</Text>
-                        </View>
+                        {this.renderArticleImage}
+
+                        {
+                            dumpJson.post_image != "" &&
+                            <View style={main.image}>
+                                <ImageBackground style={main.bg_image} source={{ uri: dumpJson.post_image }} />
+                                <Text style={[main.keywords, fonts.girassol]}>{this.keywords_text()}</Text>
+                            </View>
+                        }
+
                         <View style={article.main}>
                             <Text>{this.article_text()}</Text>
                             <Text style={[fonts.caecilia, misc.strong, article.link, { fontSize: 17, marginBottom: 20 }]} onPress={() => Linking.openURL(this.state.dump_json.origin)}>If you liked it, we recommend that you read from the original source: {this.state.dump_json.origin}</Text>
@@ -110,10 +119,10 @@ export default class HomePage extends React.Component {
 }
 
 const fonts = StyleSheet.create({
-    bookerly: { fontFamily: 'Bookerly_Regular' },
-    girassol: { fontFamily: 'Girassol_Regular' },
-    caecilia: { fontFamily: 'Caecilia_Regular' },
-    anticdidone: { fontFamily: 'AnticDidone_Regular' },
+    bookerly: { fontFamily: 'bookerly' },
+    girassol: { fontFamily: 'girassol' },
+    caecilia: { fontFamily: 'caecilia' },
+    anticdidone: { fontFamily: 'antic' },
 });
 
 const main = StyleSheet.create({
@@ -155,8 +164,8 @@ const main = StyleSheet.create({
 const header = StyleSheet.create({
     title: {
         fontSize: 25,
-        fontWeight: 'bold',
-        marginBottom: 10
+        marginBottom: 10,
+        fontFamily: 'girassol'
     },
     pre_title: {
         fontSize: 17,
@@ -192,6 +201,6 @@ const misc = StyleSheet.create({
         fontSize: 40
     },
     strong: {
-        fontWeight: 'bold'
+        fontWeight: 'bold',
     }
 });

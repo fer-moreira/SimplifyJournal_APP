@@ -1,15 +1,13 @@
 {
   "expo": {
-    "name": "simpliy-journal",
-    "slug": "SimplifyJournal",
+    "name": "Simplify Journal",
+    "slug": "simplify-journal",
     "privacy": "public",
     "sdkVersion": "36.0.0",
     "platforms": [
-      "ios",
-      "android",
-      "web"
+      "android"
     ],
-    "version": "1.0.0",
+    "version": "0.2.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -23,8 +21,10 @@
     "assetBundlePatterns": [
       "**/*"
     ],
-    "ios": {
-      "supportsTablet": true
-    }
+    "android": {
+      "package": "com.orbitstudios.simplifyjournal"
+    },
+    "description": "Simplify Journal is an app to read a newspaper article like a kindle",
+    "githubUrl": "https://github.com/zisongbr/SimplifyJournal_APP.git"
   }
 }

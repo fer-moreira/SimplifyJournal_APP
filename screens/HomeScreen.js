@@ -31,17 +31,17 @@ export default class LoginPage extends React.Component {
             fontLoaded: false,
             loadingData: false,
             error: false,
-            url_value: "https://www.nytimes.com/2019/12/21/us/politics/trump-impeachment-republicans.html"
+            url_value: ""
         };
 
     }
 
     async componentDidMount() {
         await Font.loadAsync({
-            'Bookerly_Regular': require('../assets/fonts/Bookerly-Regular.ttf'),
-            'Girassol_Regular': require('../assets/fonts/Girassol-Regular.ttf'),
-            'Caecilia_Regular': require('../assets/fonts/Caecilia-Regular.otf'),
-            'AnticDidone_Regular': require('../assets/fonts/AnticDidone-Regular.ttf')
+            'bookerly': require('../assets/fonts/bookerly_regular.ttf'),
+            'girassol': require('../assets/fonts/girassol_regular.ttf'),
+            'caecilia': require('../assets/fonts/caecilia_regular.otf'),
+            'antic': require('../assets/fonts/antic_regular.ttf')
         }).then(() => {
             this.setState({ fontLoaded: true });
         });
@@ -54,27 +54,33 @@ export default class LoginPage extends React.Component {
             loadingData: true
         });
 
-        return fetch('http://simpify-api.herokuapp.com/get_article', {
-            method: 'GET',
-            headers: {
-                'article-url': this.state.url_value
-            }
-        })
-            .then((response) => response.json())
-            .then((json) => {
-                this.setState({
-                    article_data: json,
-                    loadingData: false,
-                });
-
-                this.CallReaderScreen();
+        if (this.state.url_value != "") {
+            return fetch('http://simpify-api.herokuapp.com/get_article', {
+                method: 'GET',
+                headers: {
+                    'article-url': this.state.url_value
+                }
             })
-            .catch((error) => {
-                this.setState({
-                    error: true,
-                    errorData: error.message
+                .then((response) => response.json())
+                .then((json) => {
+                    this.setState({
+                        article_data: json,
+                        loadingData: false,
+                    });
+
+                    this.CallReaderScreen();
+                })
+                .catch((error) => {
+                    this.setState({
+                        error: true,
+                        errorData: error.message
+                    });
                 });
+        } else {
+            this.setState({
+                loadingData: false,
             });
+        }
     }
 
     CallReaderScreen() {
@@ -103,17 +109,28 @@ export default class LoginPage extends React.Component {
                 </View>
             );
         }
-        else if (this.state.error){
+        else if (this.state.error) {
             return (
-                <View style={error.div}>
-                    <Text style={error.text}> 
-                        Error: {this.state.errorData}
-                    </Text>
-                    <Button
-                    title="Back"
-                    color="black"
-                    onPress={() => this.setState({error:false})}/>
-                </View>
+                <ImageBackground source={require('../assets/static/images/Journal_Pattern.png')} style={{
+                    height: '100%',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    flex: 1
+                }}>
+                    <View style={{
+                        width: '80'
+                    }}>
+                        <Text style={{
+                            fontSize: 25,
+                            textAlign: 'center',
+                            fontWeight: 'bold',
+                            marginBottom: 30,
+                        }}>Something went wrong {"\n"} :(</Text>
+                        <Button title="OK  :(" onPress={() => this.setState({
+                            error: false
+                        })} color="black" />
+                    </View>
+                </ImageBackground>
             );
         }
         else {
@@ -149,11 +166,12 @@ export default class LoginPage extends React.Component {
 
 
 const fonts = StyleSheet.create({
-    bookerly: { fontFamily: 'Bookerly_Regular' },
-    girassol: { fontFamily: 'Girassol_Regular' },
-    caecilia: { fontFamily: 'Caecilia_Regular' },
-    anticdidone: { fontFamily: 'AnticDidone_Regular' },
+    bookerly: { fontFamily: 'bookerly' },
+    girassol: { fontFamily: 'girassol' },
+    caecilia: { fontFamily: 'caecilia' },
+    anticdidone: { fontFamily: 'antic' },
 });
+
 
 const main = StyleSheet.create({
     main: {
@@ -171,13 +189,13 @@ const main = StyleSheet.create({
 });
 
 const logo = StyleSheet.create({
-    first_letter: { fontSize: 90 },
+    first_letter: { fontSize: 100 },
     firstLine: {
         fontSize: 45,
         color: 'black',
         textAlign: "right",
         textAlign: "center",
-        lineHeight: 50
+        lineHeight: 60
 
     },
     secondLine: {
@@ -209,17 +227,17 @@ const inputs = StyleSheet.create({
         color: 'white',
         textAlign: 'center',
         fontSize: 22,
-        fontFamily: 'Girassol_Regular',
+        fontFamily: 'girassol',
     },
 });
 
 
 const loading = StyleSheet.create({
     div: {
-        height: '100%', 
-        width: '100%', 
-        flex: 1, 
-        justifyContent: 'center', 
+        height: '100%',
+        width: '100%',
+        flex: 1,
+        justifyContent: 'center',
         alignItems: 'center'
     },
     text: {
@@ -243,7 +261,7 @@ const loading = StyleSheet.create({
 
 const error = StyleSheet.create({
     div: {
-        height: '100%', 
+        height: '100%',
         width: '100%'
     },
     title: {
@@ -257,7 +275,7 @@ const error = StyleSheet.create({
         textAlign: "left",
         color: 'black',
         padding: 20,
-        height:'80%'
+        height: '80%'
     },
-    
+
 });
