@@ -1,0 +1,1 @@
+# SimplifyJournal_APP
