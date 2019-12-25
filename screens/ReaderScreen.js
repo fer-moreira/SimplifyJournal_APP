@@ -9,7 +9,8 @@ import {
     Image,
     ScrollView,
     Linking,
-    ActivityIndicator
+    ActivityIndicator,
+    Button
 } from 'react-native';
 
 import { createAppContainer, NavigationEvents } from 'react-navigation';
@@ -50,28 +51,28 @@ export default class HomePage extends React.Component {
         return tx_keywords
     }
 
+
     article_text() {
         const _json = this.state.dump_json
-        const _article = _json.body
+        const _article = _json.article_body
         const article_body = [];
 
         for (let i = 0; i < _article.length; i++) {
             let element = _article[i]
 
-            let text_el = <Text key={i}
-                onPress={element.a && element.a_link != "" ? (() => Linking.openURL(element.a_link)) : (null)}
-                style={[
-                    element.a ? (article.link) : (null),
-                    // element.strong ? (misc.strong) : (null),
-                    article.paragraph, fonts.girassol
-                ]}>{element.text}{"\n\n"}</Text>
-            article_body.push(text_el)
+            if(element.is_img){
+                const img_height = (element.resolution.height/2)
+                let img_element = <Image key={i} style={[article.image, {height:img_height}]} resizeMode="contain" source={{ uri: element.content }} />
+                article_body.push(img_element)
+            } else {
+            let text_element = <Text key={i} style={[fonts.girassol, article.paragraph]}>{ i == 0 && <Text style={article.capital_letter}>{_json.article_capitalize}</Text> }{element.content}</Text>
+                article_body.push(text_element)
+            }
+
         }
 
         return article_body
     }
-
-
 
     render() {
         const dumpJson = this.state.dump_json
@@ -81,29 +82,35 @@ export default class HomePage extends React.Component {
                 <ScrollView style={main.body}>
                     <View style={main.article}>
                         <View style={main.info} >
-                            <Image onPress={() => Linking.openURL(this.state.dump_json.origin)} style={info.logo} source={{ uri: dumpJson.site_image }} />
-                            {
-                                dumpJson.site_origin != "" &&
-                                <Text style={[info.name, fonts.girassol]}>By {dumpJson.site_origin}</Text>
-                            }
+                            <View><Button title=" < " color='black' onPress={() => this.props.navigation.goBack(null)} /></View>
+
+                            <View style={{flex:1,alignItems:'center',justifyContent:'center'}}>
+                                <Image onPress={() => Linking.openURL(this.state.dump_json.original_post)} style={info.logo} source={{ uri: dumpJson.site_favicon }} />
+                                { dumpJson.site_name != "" && <Text style={[info.name, fonts.girassol]}>By {dumpJson.site_name}</Text> }
+                            </View>
+
+                            <View><Button title=" + " color='black' onPress={() => this.props.navigation.goBack(null)} /></View>
                         </View>
                         <View style={main.header}>
-                            <Text style={header.title} >{dumpJson.title}</Text>
-                            <Text style={[header.pre_title, fonts.girassol]} >{dumpJson.pre_title}</Text>
+                            <Text style={header.title} >{dumpJson.article_title}</Text>
+                            <Text style={[header.pre_title, fonts.girassol]} >{dumpJson.article_description}</Text>
                         </View>
-                        {this.renderArticleImage}
 
                         {
-                            dumpJson.post_image != "" &&
+                            dumpJson.article_image != "" &&
                             <View style={main.image}>
-                                <ImageBackground style={main.bg_image} source={{ uri: dumpJson.post_image }} />
+                                <ImageBackground style={main.bg_image} source={{ uri: dumpJson.article_image }} />
                                 <Text style={[main.keywords, fonts.girassol]}>{this.keywords_text()}</Text>
                             </View>
                         }
 
                         <View style={article.main}>
-                            <Text>{this.article_text()}</Text>
-                            <Text style={[fonts.caecilia, misc.strong, article.link, { fontSize: 17, marginBottom: 20 }]} onPress={() => Linking.openURL(this.state.dump_json.origin)}>If you liked it, we recommend that you read from the original source: {this.state.dump_json.origin}</Text>
+                            {this.article_text()}
+                            <Text 
+                                style={[fonts.caecilia, misc.strong, { textDecorationLine: 'underline', fontSize: 20, marginVertical: 30 }]}
+                                onPress={() => Linking.openURL(this.state.dump_json.origin)}>
+                                If you liked it, we recommend that you read from the original source: {dumpJson.original_post}
+                                </Text>
                         </View>
                     </View>
                 </ScrollView>
@@ -129,6 +136,7 @@ const main = StyleSheet.create({
     body: {
         width: '100%',
         height: '100%',
+        // backgroundColor: '#e9d8ba'
     },
     article: {
         width: '100%',
@@ -137,8 +145,12 @@ const main = StyleSheet.create({
     },
     info: {
         alignItems: 'center',
-        padding: 20,
-        marginTop: 20
+        // padding: 20,
+        marginTop: 40,
+        marginBottom: 20,
+        flex: 1,
+        justifyContent: 'space-between',
+        flexDirection: 'row'
     },
     header: {
         justifyContent: 'flex-start',
@@ -165,10 +177,17 @@ const header = StyleSheet.create({
     title: {
         fontSize: 25,
         marginBottom: 10,
-        fontFamily: 'girassol'
+        fontFamily: 'girassol',
+        letterSpacing: 1,
+        lineHeight: 25
+        // color: '#513919'
+
     },
     pre_title: {
-        fontSize: 17,
+        fontSize: 20,
+        // color: '#5d452d',
+        letterSpacing: 1,
+        lineHeight: 25
     }
 });
 
@@ -177,10 +196,19 @@ const article = StyleSheet.create({
         marginTop: 20
     },
     paragraph: {
-        fontSize: 18
+        fontSize: 19,
+        marginVertical: 10,
+        letterSpacing: 1,
+        lineHeight: 25
+        // color: '#5d452d',
     },
-    link: {
-        textDecorationLine: 'underline'
+    image: { 
+        flex: 1,
+        width: '100%',
+        marginVertical: 10
+    },
+    capital_letter: {
+        fontSize: 40,
     }
 });
 
@@ -188,6 +216,7 @@ const info = StyleSheet.create({
     logo: {
         height: 32,
         width: 32,
+        borderRadius: 5
     },
     name: {
         fontSize: 15,
@@ -201,6 +230,6 @@ const misc = StyleSheet.create({
         fontSize: 40
     },
     strong: {
-        fontWeight: 'bold',
+        color: 'black'
     }
 });
