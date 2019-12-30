@@ -65,7 +65,7 @@ export default class HomePage extends React.Component {
                 let img_element = <Image key={i} style={[article.image, {height:img_height}]} resizeMode="contain" source={{ uri: element.content }} />
                 article_body.push(img_element)
             } else {
-            let text_element = <Text key={i} style={[fonts.girassol, article.paragraph]}>{ i == 0 && <Text style={article.capital_letter}>{_json.article_capitalize}</Text> }{element.content}</Text>
+            let text_element = <Text key={i} style={[fonts.bookerly, article.paragraph]}>{ i == 0 && <Text style={article.capital_letter}>{_json.article_capitalize}</Text> }{element.content}</Text>
                 article_body.push(text_element)
             }
 
@@ -92,23 +92,23 @@ export default class HomePage extends React.Component {
                             <View><Button title=" + " color='black' onPress={() => this.props.navigation.goBack(null)} /></View>
                         </View>
                         <View style={main.header}>
-                            <Text style={header.title} >{dumpJson.article_title}</Text>
-                            <Text style={[header.pre_title, fonts.girassol]} >{dumpJson.article_description}</Text>
+                            <Text style={[header.title, fonts.bookerly]}> {dumpJson.article_title}</Text>
+                            <Text style={[header.pre_title, fonts.bookerly]} >{dumpJson.article_description}</Text>
                         </View>
 
-                        {
-                            dumpJson.article_image != "" &&
+                        { 
+                        dumpJson.article_image != "" &&
                             <View style={main.image}>
                                 <ImageBackground style={main.bg_image} source={{ uri: dumpJson.article_image }} />
-                                <Text style={[main.keywords, fonts.girassol]}>{this.keywords_text()}</Text>
+                                 { this.keywords_text() != "" && <Text style={[main.keywords, fonts.girassol]}>{this.keywords_text()}</Text> }
                             </View>
                         }
 
                         <View style={article.main}>
                             {this.article_text()}
                             <Text 
-                                style={[fonts.caecilia, misc.strong, { textDecorationLine: 'underline', fontSize: 20, marginVertical: 30 }]}
-                                onPress={() => Linking.openURL(this.state.dump_json.origin)}>
+                                style={[fonts.bookerly, misc.strong, { textDecorationLine: 'underline', fontSize: 20, marginVertical: 20 }]}
+                                onPress={() => Linking.openURL(this.state.dump_json.original_post)}>
                                 If you liked it, we recommend that you read from the original source: {dumpJson.original_post}
                                 </Text>
                         </View>
@@ -176,16 +176,12 @@ const main = StyleSheet.create({
 const header = StyleSheet.create({
     title: {
         fontSize: 25,
-        marginBottom: 10,
-        fontFamily: 'girassol',
         letterSpacing: 1,
-        lineHeight: 25
-        // color: '#513919'
-
+        lineHeight: 25,
+        marginBottom: 15,
     },
     pre_title: {
         fontSize: 20,
-        // color: '#5d452d',
         letterSpacing: 1,
         lineHeight: 25
     }
@@ -205,7 +201,6 @@ const article = StyleSheet.create({
     image: { 
         flex: 1,
         width: '100%',
-        marginVertical: 10
     },
     capital_letter: {
         fontSize: 40,
