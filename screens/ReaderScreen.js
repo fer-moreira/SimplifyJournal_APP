@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as Font from 'expo-font';
+// import { vw, vh, vmin, vmax } from 'react-native-expo-viewport-units';
 
 import {
     Text,
@@ -83,12 +84,12 @@ export default class HomePage extends React.Component {
             return (
                 <ScrollView style={main.body}>
                     <View style={main.article}>
-                        <View style={main.info} >
-                            <View><Button title=" < " color='black' onPress={() => this.props.navigation.goBack(null)} /></View>
-
-                            <View style={{flex:1,alignItems:'center',justifyContent:'center'}}>
-                                <Image onPress={() => Linking.openURL(this.state.dump_json.original_post)} style={info.logo} source={{ uri: dumpJson.site_favicon }} />
-                                { dumpJson.site_name != "" && <Text style={[info.name, fonts.girassol]}>By {dumpJson.site_name}</Text> }
+                        <View style={main.starter}>
+                            <View style={main.header}>
+                                { dumpJson.site_name != "" &&
+                                <Text style={[header.name, fonts.girassol]}>By {dumpJson.site_name}</Text> }
+                                <Text style={[header.title, fonts.bookerly]}>{dumpJson.article_title}</Text>
+                                <Text style={[header.pre_title, fonts.bookerly]}>{dumpJson.article_description}</Text>
                             </View>
 
                             <View><Button title=" + " color='black' onPress={() => this.props.navigation.goBack(null)} /></View>
@@ -127,65 +128,63 @@ export default class HomePage extends React.Component {
 }
 
 const fonts = StyleSheet.create({
-    bookerly: { fontFamily: 'bookerly' },
-    girassol: { fontFamily: 'girassol' },
-    caecilia: { fontFamily: 'caecilia' },
-    anticdidone: { fontFamily: 'antic' },
+    bookerly: { fontFamily: 'bookerly', color: 'black' },
+    girassol: { fontFamily: 'girassol', color: 'black' },
+    caecilia: { fontFamily: 'caecilia', color: 'black' },
+    anticdidone: { fontFamily: 'antic', color: 'black' },
 });
 
 const main = StyleSheet.create({
     body: {
         width: '100%',
         height: '100%',
-        // backgroundColor: '#e9d8ba'
     },
     article: {
         width: '100%',
         height: '100%',
-        paddingHorizontal: 20
     },
-    info: {
-        alignItems: 'center',
-        // padding: 20,
-        marginTop: 40,
-        marginBottom: 20,
-        flex: 1,
-        justifyContent: 'space-between',
-        flexDirection: 'row'
+    starter: {
+        height: vh(100),
+        width: '100%',
     },
     header: {
-        justifyContent: 'flex-start',
-        alignItems: 'flex-start',
-        marginBottom: 15
-    },
-    image: {
-        backgroundColor: 'white',
-        marginBottom: 2,
-        height: 250
-    },
-    bg_image: {
         width: '100%',
-        height: '100%'
+        paddingHorizontal: 20,
+        paddingVertical: 50
     },
-    keywords: {
-        fontSize: 12,
-        color: '#686868',
-        padding: 3
+    first_image: {
+        flex:1,
+        alignItems:'center',
+        justifyContent:'center',
+        alignSelf:'stretch',
     }
 });
 
 const header = StyleSheet.create({
-    title: {
-        fontSize: 25,
+    name: {
+        fontSize: 30,
         letterSpacing: 1,
         lineHeight: 25,
         marginBottom: 15,
     },
+    title: {
+        fontSize: 30,
+        letterSpacing: 1,
+        lineHeight: 30,
+        marginBottom: 15,
+
+    },
     pre_title: {
         fontSize: 20,
         letterSpacing: 1,
-        lineHeight: 25
-    }
+        lineHeight: 25,
+
+    },
+    image: {
+        flex: 1,
+        width: '100%',
+        height: '100%'
+    },
 });
 
 const article = StyleSheet.create({
@@ -197,11 +196,6 @@ const article = StyleSheet.create({
         marginVertical: 10,
         letterSpacing: 1,
         lineHeight: 25
-        // color: '#5d452d',
-    },
-    image: { 
-        flex: 1,
-        width: '100%',
     },
     capital_letter: {
         fontSize: 40,
