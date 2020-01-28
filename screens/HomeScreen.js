@@ -7,6 +7,7 @@ import {
     StyleSheet,
     TextInput,
     ImageBackground,
+    Image,
     TouchableOpacity,
     ActivityIndicator,
     Button
@@ -45,9 +46,7 @@ export default class LoginPage extends React.Component {
         }).then(() => {
             this.setState({ fontLoaded: true });
         });
-
     };
-
 
     getArticleData() {
         this.setState({
@@ -58,7 +57,7 @@ export default class LoginPage extends React.Component {
             return fetch('http://simpify-api.herokuapp.com/get_article', {
                 method: 'GET',
                 headers: {
-                    'article-url': this.state.url_value
+                    'article-url': this.state.url_value,
                 }
             })
                 .then((response) => response.json())
@@ -89,8 +88,6 @@ export default class LoginPage extends React.Component {
         });
     }
 
-
-
     render() {
         if (!this.state.fontLoaded) {
             return (
@@ -104,7 +101,7 @@ export default class LoginPage extends React.Component {
         else if (this.state.loadingData && this.state.fontLoaded) {
             return (
                 <View style={loading.div}>
-                    <ActivityIndicator size="large" color="black" />
+                    <Image style={[loading.writing_icon]} source={require('../assets/static/images/writing.gif')} />
                     <Text style={[loading.writing, fonts.girassol]}>writing your article...</Text>
                 </View>
             );
@@ -152,6 +149,7 @@ export default class LoginPage extends React.Component {
                                     value={this.state.url_value}
                                 />
 
+                                
                                 <TouchableOpacity onPress={this.getArticleData} style={inputs.btn}>
                                     <Text style={inputs.btn_txt}>Simplify</Text>
                                 </TouchableOpacity>
@@ -252,10 +250,13 @@ const loading = StyleSheet.create({
         color: 'black',
     },
     writing: {
-        marginVertical: 12,
         fontSize: 30,
         textAlign: "center",
         color: 'black',
+    },
+    writing_icon: {
+        height:150,
+        width:150 
     }
 });
 

@@ -27,7 +27,8 @@ export default class HomePage extends React.Component {
         this.state = {
             fontLoaded: false,
             params: this.props.navigation.state.params,
-            dump_json: this.props.navigation.state.params.article_data,
+            dump_json: require('../lib/sample.json'),
+            // dump_json: this.props.navigation.state.params.article_data,
         };
     }
 
@@ -46,6 +47,7 @@ export default class HomePage extends React.Component {
 
     keywords_text() {
         const _json = this.state.dump_json;
+        // const _keywords = _json.keywords.slice(0,6);
         const _keywords = _json.keywords;
         const tx_keywords = _keywords.join(' | ')
         return tx_keywords
@@ -96,13 +98,12 @@ export default class HomePage extends React.Component {
                             <Text style={[header.pre_title, fonts.bookerly]} >{dumpJson.article_description}</Text>
                         </View>
 
-                        { 
-                        dumpJson.article_image != "" &&
-                            <View style={main.image}>
-                                <ImageBackground style={main.bg_image} source={{ uri: dumpJson.article_image }} />
-                                 { this.keywords_text() != "" && <Text style={[main.keywords, fonts.girassol]}>{this.keywords_text()}</Text> }
-                            </View>
-                        }
+                        {dumpJson.article_image != "" &&
+                        <View style={main.image}>
+                            <ImageBackground style={main.bg_image} source={{ uri: dumpJson.article_image }} />
+                        </View>}
+
+                        { this.keywords_text() != "" && <Text style={[main.keywords, fonts.girassol]}>{this.keywords_text()}</Text> }
 
                         <View style={article.main}>
                             {this.article_text()}
@@ -159,8 +160,8 @@ const main = StyleSheet.create({
     },
     image: {
         backgroundColor: 'white',
-        height: 250,
-        marginBottom: 30
+        marginBottom: 2,
+        height: 250
     },
     bg_image: {
         width: '100%',
@@ -189,7 +190,7 @@ const header = StyleSheet.create({
 
 const article = StyleSheet.create({
     main: {
-        marginTop: 20
+        marginTop: 5
     },
     paragraph: {
         fontSize: 19,
@@ -204,6 +205,8 @@ const article = StyleSheet.create({
     },
     capital_letter: {
         fontSize: 40,
+        marginTop: 5,
+        padding: 1
     }
 });
 
