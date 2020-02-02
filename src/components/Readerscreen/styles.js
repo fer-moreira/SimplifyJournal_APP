@@ -1,9 +1,13 @@
 import { StyleSheet } from 'react-native';
+import Constants from 'expo-constants';
+
+import { text_color, background_color } from '../../styles/global_styles';
 
 export const main = StyleSheet.create({
     body: {
         width: '100%',
         height: '100%',
+        backgroundColor: background_color
     },
     article: {
         width: '100%',
@@ -15,58 +19,80 @@ export const main = StyleSheet.create({
     },
     header: {
         width: '100%',
-        paddingHorizontal: 20,
-        paddingVertical: 50
-    },
-    first_image: {
-        flex:1,
-        alignItems:'center',
-        justifyContent:'center',
-        alignSelf:'stretch',
+        padding: 10,
+        justifyContent: 'flex-end'
     }
 });
 
 export const header = StyleSheet.create({
-    name: {
-        fontSize: 30,
-        letterSpacing: 1,
-        lineHeight: 25,
-        marginBottom: 15,
-    },
     title: {
-        fontSize: 30,
-        letterSpacing: 1,
-        lineHeight: 30,
-        marginBottom: 15,
-
+        fontSize: 35,
+        marginVertical: 5,
+        color: text_color,
+        textShadowColor: background_color,
+        textShadowOffset:{width: 2, height: 2},
+        textShadowRadius: 5,
     },
     pre_title: {
         fontSize: 20,
         letterSpacing: 1,
         lineHeight: 25,
-
+        color: text_color
     },
     image: {
         flex: 1,
         width: '100%',
-        height: '100%'
+        height: 450,
+        justifyContent: 'flex-end',
     },
+    logo_container: {
+        flexDirection: "row",
+        top: 0
+    },
+    logo: {
+        width: 40,
+        height: 40
+    },
+    name: {
+        fontSize: 20,
+        color: text_color,
+        padding: 5
+    },
+    button: {
+        backgroundColor: background_color,
+        position: 'absolute',
+        top: -10,
+        left: 0,
+        borderBottomRightRadius: 20,
+        padding: 5
+    },
+    button_text: {
+        color: text_color,
+        fontSize: 40
+    }
 });
 
 export const article = StyleSheet.create({
     main: {
-        marginTop: 5
+        paddingHorizontal: 15,
+    },
+    keywords: {
+        fontSize: 10,
+        paddingHorizontal: 10,
+        marginBottom: 25,
+        marginTop: 10,
+        color: '#c3c3c3',
     },
     paragraph: {
         fontSize: 19,
-        marginVertical: 10,
-        letterSpacing: 1,
-        lineHeight: 25
+        marginBottom: 12,
+        color: text_color
     },
-    capital_letter: {
-        fontSize: 40,
-        marginTop: 5,
-        padding: 1
+    original_link: {
+        textDecorationLine: 'underline', 
+        fontSize: 20, 
+        color: text_color,
+        marginVertical: 20
     }
 });
 
@@ -85,9 +111,18 @@ export const info = StyleSheet.create({
 
 export const misc = StyleSheet.create({
     generic_text: {
-        fontSize: 40
+        fontSize: 40,
+        color: text_color
     },
     strong: {
-        color: 'black'
+        color: text_color,
+        fontWeight: "bold"
+    },
+    loading: { 
+        height: '100%', 
+        width: '100%', 
+        flex: 1, 
+        justifyContent: 'center', 
+        alignItems: 'center'
     }
 });

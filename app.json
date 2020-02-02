@@ -25,6 +25,9 @@
       "package": "com.orbitstudios.simplifyjournal"
     },
     "description": "Simplify Journal is an app to read a newspaper article like a kindle",
-    "githubUrl": "https://github.com/zisongbr/SimplifyJournal_APP.git"
+    "githubUrl": "https://github.com/zisongbr/SimplifyJournal_APP.git",
+    "androidStatusBar": {
+      "backgroundColor": "#000000"
+    }
   }
 }

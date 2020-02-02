@@ -11,7 +11,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 
 const AppNavigator = createStackNavigator({
   Home: {
-    screen: ReaderScreen,
+    screen: HomeScreen,
   },
   Article: {
     screen: ReaderScreen,

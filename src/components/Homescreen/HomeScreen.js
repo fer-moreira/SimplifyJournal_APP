@@ -14,6 +14,7 @@ import {
 } from 'react-native';
 
 import { main, logo, inputs, loading, error } from './styles';
+import { writing_gif } from '../../styles/global_styles';
 
 import * as Font from 'expo-font';
 
@@ -38,10 +39,7 @@ export default class LoginPage extends React.Component {
 
     async componentDidMount() {
         await Font.loadAsync({
-            'bookerly': require('../../assets/fonts/bookerly_regular.ttf'),
             'girassol': require('../../assets/fonts/girassol_regular.ttf'),
-            'caecilia': require('../../assets/fonts/caecilia_regular.otf'),
-            'antic': require('../../assets/fonts/antic_regular.ttf')
         }).then(() => {
             this.setState({ fontLoaded: true });
         });
@@ -53,7 +51,7 @@ export default class LoginPage extends React.Component {
         });
 
         if (this.state.url_value != "") {
-            return fetch('http://simpifyjournal-api.herokuapp.com/get_article', {
+            return fetch('https://simplifyjournal-api.herokuapp.com/parser/json', {
                 method: 'GET',
                 headers: {
                     'article-url': this.state.url_value,
@@ -100,8 +98,8 @@ export default class LoginPage extends React.Component {
         else if (this.state.loadingData && this.state.fontLoaded) {
             return (
                 <View style={loading.div}>
-                    <Image style={[loading.writing_icon]} source={require('../../assets/static/images/writing.gif')} />
-                    <Text style={[loading.writing, fonts.girassol]}>writing your article...</Text>
+                    <Image style={[loading.writing_icon]} source={writing_gif} />
+                    <Text style={[loading.writing, fonts.default]}>writing your article...</Text>
                 </View>
             );
         }
@@ -135,19 +133,18 @@ export default class LoginPage extends React.Component {
                     <View style={main.main}>
                         <View style={main.div}>
                             <View>
-                                <Text style={[logo.firstLine, fonts.caecilia]}> Simplify {"\n"}
-                                    <Text style={[logo.secondLine, fonts.girassol]}><Text style={logo.first_letter}>J</Text>ournal</Text>
+                                <Text style={[logo.firstLine, fonts.default]}> Simplify {"\n"}
+                                    <Text style={[logo.secondLine, fonts.default]}><Text style={logo.first_letter}>J</Text>ournal</Text>
                                 </Text>
                             </View>
 
                             <View style={inputs.div}>
                                 <TextInput
-                                    style={[inputs.text_input, fonts.girassol]}
+                                    style={[inputs.text_input, fonts.default]}
                                     placeholder="Enter an Article to Simplify:"
                                     onChangeText={(text) => this.setState({ url_value: text })}
                                     value={this.state.url_value}
                                 />
-
                                 
                                 <TouchableOpacity onPress={this.getArticleData} style={inputs.btn}>
                                     <Text style={inputs.btn_txt}>Simplify</Text>
@@ -163,8 +160,5 @@ export default class LoginPage extends React.Component {
 
 
 const fonts = StyleSheet.create({
-    bookerly: { fontFamily: 'bookerly' },
-    girassol: { fontFamily: 'girassol' },
-    caecilia: { fontFamily: 'caecilia' },
-    anticdidone: { fontFamily: 'antic' },
+    default: { fontFamily: 'girassol' },
 });
