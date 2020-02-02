@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import HomeScreen  from './screens/HomeScreen';
-import ReaderScreen  from './screens/ReaderScreen';
+import HomeScreen  from './src/components/Homescreen/HomeScreen';
+import ReaderScreen  from './src/components/Readerscreen/ReaderScreen';
 
 
 import { Dimensions } from 'react-native';

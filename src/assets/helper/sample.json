@@ -1,0 +1,353 @@
+{
+  "code": 200,
+  "original_post": "https://towardsdatascience.com/economic-indicators-with-python-befb8b35af4d",
+  "site_name": "Medium",
+  "site_favicon": "https://towardsdatascience.com/favicon.ico",
+  "keywords": [],
+  "article_title": "Economic Indicators with Python",
+  "article_description": "Retrieve and Plot Economic Indicators using Python and Plotly",
+  "article_image": "https://miro.medium.com/max/758/0*n4bWOYW8IFizIo6N",
+  "article_body": [
+    {
+      "is_img": false,
+      "content": "Economic indicators are used often by economists and financial analysts to predict the cycle of the economy. This analysis is very important before making investment decisions.",
+      "props": []
+    },
+    {
+      "is_img": false,
+      "content": "In this article, we are going to automate the extraction of Economic indicator data with Python. All that we will need is Python and Pandas. We will analyse data for the European Union.",
+      "props": [
+        {
+          "start": 60,
+          "steps": 35,
+          "type": "strong",
+          "text": "Economic indicator data with Python"
+        }
+      ]
+    },
+    {
+      "is_img": false,
+      "content": "First, let’s start with a bit of theory. There are three main categories of economic indicators that I would like to introduce in this post. Lagging indicators, coincident indicators and leading indicators.",
+      "props": [
+        {
+          "start": 141,
+          "steps": 7,
+          "type": "strong",
+          "text": "Lagging"
+        },
+        {
+          "start": 161,
+          "steps": 10,
+          "type": "strong",
+          "text": "coincident"
+        },
+        {
+          "start": 187,
+          "steps": 7,
+          "type": "strong",
+          "text": "leading"
+        }
+      ]
+    },
+    {
+      "is_img": false,
+      "content": "These indicators have different measures and are published by different sources such as OECD and the Conference Board. By looking at the website of the Conference Board, we can easily find a few of these economic indicators for each of the three categories:",
+      "props": [
+        {
+          "start": 101,
+          "steps": 16,
+          "type": "link",
+          "text": "Conference Board",
+          "href": "https://www.conference-board.org/data/bci/index.cfm?id=2160"
+        }
+      ]
+    },
+    {
+      "is_img": false,
+      "content": "Within leading indicators, we find average weekly hours in manufacturing, building permits, stock prices and leading credit index among others.",
+      "props": [
+        {
+          "start": 7,
+          "steps": 18,
+          "type": "strong",
+          "text": "leading indicators"
+        }
+      ]
+    },
+    {
+      "is_img": false,
+      "content": "Within coincident indicators, we find industrial production and manufacturing, trade sales, etc.",
+      "props": [
+        {
+          "start": 7,
+          "steps": 10,
+          "type": "strong",
+          "text": "coincident"
+        },
+        {
+          "start": 18,
+          "steps": 10,
+          "type": "strong",
+          "text": "indicators"
+        }
+      ]
+    },
+    {
+      "is_img": false,
+      "content": "Finally, among lagging indicators, we find average duration of unemployment, commercial and industrial loans, consumer price index for services and inventory to sales ratio.",
+      "props": [
+        {
+          "start": 15,
+          "steps": 20,
+          "type": "strong",
+          "text": "lagging indicators, "
+        },
+        {
+          "start": 8,
+          "steps": 1,
+          "type": "strong",
+          "text": " "
+        }
+      ]
+    },
+    {
+      "is_img": false,
+      "content": "You can find a definition for each of these indicators in the Conference-Board site.",
+      "props": [
+        {
+          "start": 62,
+          "steps": 21,
+          "type": "link",
+          "text": "Conference-Board site",
+          "href": "https://www.conference-board.org/data/bci/index.cfm?id=2160"
+        }
+      ]
+    },
+    {
+      "is_img": false,
+      "content": "Let’s get a few of them with Python to analyse the current economic situation in the European Union. All indicators are extracted using the free API available in DBnomics.",
+      "props": [
+        {
+          "start": 162,
+          "steps": 8,
+          "type": "link",
+          "text": "DBnomics",
+          "href": "https://db.nomics.world/"
+        }
+      ]
+    },
+    {
+      "is_img": false,
+      "content": "The economic indicators that we will retrieve with Python are the followings: inflation, interest, GDP growth, unemployment rate, retail trade change and 10 years Euro yield curves. Ok, let’s move to the coding part!",
+      "props": [
+        {
+          "start": 78,
+          "steps": 9,
+          "type": "strong",
+          "text": "inflation"
+        },
+        {
+          "start": 89,
+          "steps": 39,
+          "type": "strong",
+          "text": "interest, GDP growth, unemployment rate"
+        },
+        {
+          "start": 130,
+          "steps": 50,
+          "type": "strong",
+          "text": "retail trade change and 10 years Euro yield curves"
+        }
+      ]
+    },
+    {
+      "is_img": false,
+      "content": "First thing is to import all required libraries that we will be using. Namely, Pandas, Json, Requests and Plotly.",
+      "props": []
+    },
+    {
+      "is_img": false,
+      "content": "We will use Json and requests to retrieve data from the API. Then, we will use Pandas to handle the data. Finally, Plotly to create our Graph.",
+      "props": []
+    },
+    {
+      "is_img": false,
+      "content": "Once we have imported all the needed libraries, we can move to retrieving the economic indicators. Since we will be extracting more than one indicator, we will build a function that we can reuse to extract all indicators. I have named the function checkindicator:",
+      "props": []
+    },
+    {
+      "is_img": false,
+      "content": "Our function makes a request to the API url that will return the economic data. The url is extracted from DBnomics. Simply, we go to DBnomics site, search for the indicator, select it and copy the API link.",
+      "props": [
+        {
+          "start": 106,
+          "steps": 8,
+          "type": "link",
+          "text": "DBnomics",
+          "href": "https://db.nomics.world/"
+        }
+      ]
+    },
+    {
+      "is_img": false,
+      "content": "Then, we pass the API link as an argument of our checkindicator function as shown below to get the selected indicator for the European Union. In our first example, we will extract the interest rates.",
+      "props": []
+    },
+    {
+      "is_img": false,
+      "content": "Since our API response returns a large json object, we parse it to extract the periods and values as shown in the code above. Then, we create a Pandas DataFrame containing the dates and the interest rates values.",
+      "props": []
+    },
+    {
+      "is_img": false,
+      "content": "After running the code, our checklist function will return a Pandas DataFrame containing the interest information per month. Something like below:",
+      "props": []
+    },
+    {
+      "is_img": false,
+      "content": "Now, we are ready to extract all other indicators. We will store them in variables in the form of a Pandas DataFrame. Now that we have our economic indicators extracted, we can move to plot them together.",
+      "props": []
+    },
+    {
+      "is_img": false,
+      "content": "In order to plot our Economic indicators with Python, we will use a library called Plotly.",
+      "props": [
+        {
+          "start": 83,
+          "steps": 6,
+          "type": "link",
+          "text": "Plotly",
+          "href": "https://plot.ly/python/"
+        }
+      ]
+    },
+    {
+      "is_img": false,
+      "content": "First of all, we need to import it. Next, we need to create a Fig object where we will add the traces. In our case, a trace will represent an economic indicator. Therefore, we will have as many traces as indicators we want to include in the chart.",
+      "props": [
+        {
+          "start": 62,
+          "steps": 3,
+          "type": "strong",
+          "text": "Fig"
+        },
+        {
+          "start": 95,
+          "steps": 5,
+          "type": "strong",
+          "text": "trace"
+        }
+      ]
+    },
+    {
+      "is_img": false,
+      "content": "To keep it simple for now, let’s only plot the interest rate. Within our add_trace object, we specify the x which will be the index of our DataFrame (i.e. index represents the dates). While y will represent our values (i.e. the interest rates associated with each of the dates).",
+      "props": [
+        {
+          "start": 73,
+          "steps": 9,
+          "type": "strong",
+          "text": "add_trace"
+        },
+        {
+          "start": 106,
+          "steps": 1,
+          "type": "strong",
+          "text": "x"
+        },
+        {
+          "start": 189,
+          "steps": 2,
+          "type": "strong",
+          "text": " y"
+        }
+      ]
+    },
+    {
+      "is_img": false,
+      "content": "Then, we use fig.updated_layout in order to make the figure look nicer and include a date slider and a title:",
+      "props": [
+        {
+          "start": 12,
+          "steps": 19,
+          "type": "strong",
+          "text": " fig.updated_layout"
+        }
+      ]
+    },
+    {
+      "is_img": false,
+      "content": "If we run our code now, we will get below chart containing more than 15 years of interest rates in the European Union:",
+      "props": [
+        {
+          "start": 81,
+          "steps": 36,
+          "type": "strong",
+          "text": "interest rates in the European Union"
+        }
+      ]
+    },
+    {
+      "is_img": false,
+      "content": "So far so good. Let’s now add all other economic indicators such as unemployment, GDP growth, etc. to our Python graph.",
+      "props": []
+    },
+    {
+      "is_img": false,
+      "content": "We can simply do that by adding new traces. See below the code to plot all our macroeconomic indicators together. As mention above, each trace represents a different indicator. We change the name and the line color for each of the traces:",
+      "props": []
+    },
+    {
+      "is_img": false,
+      "content": "Nice! We can use the slider below the chart area to change the dates of the graph dynamically.",
+      "props": []
+    },
+    {
+      "is_img": false,
+      "content": "We have created a script to retrieve economic indicators with Python. Then, we have plotted them together using Plotly.",
+      "props": [
+        {
+          "start": 36,
+          "steps": 32,
+          "type": "strong",
+          "text": " economic indicators with Python"
+        }
+      ]
+    },
+    {
+      "is_img": false,
+      "content": "You can change or add new indicators depending on the area of the economy that you want to analyse. A similar analysis can be done for different countries. We have selected the Euro Area for this post. But you can easily change it by modifying the url parameters.",
+      "props": []
+    },
+    {
+      "is_img": false,
+      "content": "For your reference, see below the final code to build a chart showing economic indicators with Python and Plotly.",
+      "props": [
+        {
+          "start": 70,
+          "steps": 42,
+          "type": "strong",
+          "text": "economic indicators with Python and Plotly"
+        }
+      ]
+    },
+    {
+      "is_img": false,
+      "content": "If you had troubles understanding the code, I have a video on Youtube going through the code and API step by step:",
+      "props": []
+    },
+    {
+      "is_img": false,
+      "content": "Originally published at https://codingandfun.com on February 1, 2020.",
+      "props": [
+        {
+          "start": 24,
+          "steps": 24,
+          "type": "link",
+          "text": "https://codingandfun.com",
+          "href": "https://codingandfun.com/economic-indicators-with-python/"
+        }
+      ]
+    }
+  ]
+}
