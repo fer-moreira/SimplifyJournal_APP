@@ -83,12 +83,9 @@ export default class HomePage extends React.Component {
                         {dumpJson.article_image != "" &&
                         <View style={header.image}>
                             <ImageBackground style={header.image} source={{ uri: dumpJson.article_image }}>
-                                <TouchableOpacity onPress={
-                                    () => navigate('Home')
-                                } style={[header.button]}>
+                                <TouchableOpacity onPress={ () => navigate('Home') } style={[header.button]}>
                                     <Text style={[header.button_text]}>{" < "}</Text>
                                 </TouchableOpacity>
-
                                 <View style={main.header}>
                                     <Text style={[header.title, fonts.default]}>{dumpJson.article_title}</Text>                                
                                     <View style={header.logo_container}>

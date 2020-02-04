@@ -103,58 +103,56 @@ export default class LoginPage extends React.Component {
                 </View>
             );
         }
-        else if (this.state.error) {
-            return (
-                <ImageBackground source={require('../../assets/static/images/Journal_Pattern.png')} style={{
-                    height: '100%',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    flex: 1
-                }}>
-                    <View style={{
-                        width: '80'
-                    }}>
-                        <Text style={{
-                            fontSize: 25,
-                            textAlign: 'center',
-                            fontWeight: 'bold',
-                            marginBottom: 30,
-                        }}>Something went wrong {"\n"} :(</Text>
-                        <Button title="OK  :(" onPress={() => this.setState({
-                            error: false
-                        })} color="black" />
-                    </View>
-                </ImageBackground>
-            );
-        }
         else {
             return (
-                <ImageBackground source={require('../../assets/static/images/Journal_Pattern.png')} style={{ height: '100%' }}>
-                    <View style={main.main}>
-                        <View style={main.div}>
-                            <View>
-                                <Text style={[logo.firstLine, fonts.default]}> Simplify {"\n"}
-                                    <Text style={[logo.secondLine, fonts.default]}><Text style={logo.first_letter}>J</Text>ournal</Text>
-                                </Text>
-                            </View>
+                <View style={main.main}>
+                    <View style={main.div}>
+                        <View style={[logo.container]}>
+                            <Text style={[logo.firstLine, fonts.default]}> Simplify {"\n"}
+                                <Text style={[logo.secondLine, fonts.default]}><Text style={logo.first_letter}>J</Text>ournal</Text>
+                            </Text>
+                        </View>
 
-                            <View style={inputs.div}>
-                                <TextInput
-                                    style={[inputs.text_input, fonts.default]}
-                                    placeholder="Enter an Article to Simplify:"
-                                    onChangeText={(text) => this.setState({ url_value: text })}
-                                    value={this.state.url_value}
-                                />
-                                
-                                <TouchableOpacity onPress={this.getArticleData} style={inputs.btn}>
-                                    <Text style={inputs.btn_txt}>Simplify</Text>
-                                </TouchableOpacity>
-                            </View>
+                        <View style={inputs.div}>
+                            <TextInput
+                                style={[inputs.text_input, fonts.default]}
+                                placeholder="Enter an Article to Simplify:"
+                                onChangeText={(text) => this.setState({ url_value: text })}
+                                value={this.state.url_value}
+                            />
+                            
+                            <TouchableOpacity onPress={this.getArticleData} style={inputs.btn}>
+                                <Text style={inputs.btn_txt}>Simplify</Text>
+                            </TouchableOpacity>
                         </View>
                     </View>
-                </ImageBackground>
+                </View>
             );
         }
+        // else if (this.state.error) {
+        //     return (
+        //         <ImageBackground source={require('../../assets/static/images/Journal_Pattern.png')} style={{
+        //             height: '100%',
+        //             justifyContent: 'center',
+        //             alignItems: 'center',
+        //             flex: 1
+        //         }}>
+        //             <View style={{
+        //                 width: '80'
+        //             }}>
+        //                 <Text style={{
+        //                     fontSize: 25,
+        //                     textAlign: 'center',
+        //                     fontWeight: 'bold',
+        //                     marginBottom: 30,
+        //                 }}>Something went wrong {"\n"} :(</Text>
+        //                 <Button title="OK  :(" onPress={() => this.setState({
+        //                     error: false
+        //                 })} color="black" />
+        //             </View>
+        //         </ImageBackground>
+        //     );
+        // }
     }
 }
 

@@ -1,7 +1,7 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, TextComponent } from 'react-native';
 import Constants from 'expo-constants';
 
-import { text_color, background_color } from '../../styles/global_styles';
+import { text_color, background_color, white_color, black_color } from '../../styles/global_styles';
 
 export const main = StyleSheet.create({
     body: {
@@ -28,9 +28,9 @@ export const header = StyleSheet.create({
     title: {
         fontSize: 35,
         marginVertical: 5,
-        color: text_color,
-        textShadowColor: background_color,
-        textShadowOffset:{width: 2, height: 2},
+        color: white_color,
+        textShadowColor: '#707070',
+        textShadowOffset:{width: 1, height: 1},
         textShadowRadius: 5,
     },
     pre_title: {
@@ -55,20 +55,24 @@ export const header = StyleSheet.create({
     },
     name: {
         fontSize: 20,
-        color: text_color,
+        color: white_color,
         padding: 5
     },
     button: {
-        backgroundColor: background_color,
+        height: 50,
+        width: '20%',
+        top: 0,
         position: 'absolute',
-        top: -10,
-        left: 0,
-        borderBottomRightRadius: 20,
-        padding: 5
+        justifyContent: 'center'
     },
     button_text: {
-        color: text_color,
-        fontSize: 40
+        color: white_color,
+        fontSize: 40,
+        textAlign: 'center',
+        
+        textShadowColor: black_color,
+        textShadowOffset:{width: 1, height: 1},
+        textShadowRadius: 10,
     }
 });
 

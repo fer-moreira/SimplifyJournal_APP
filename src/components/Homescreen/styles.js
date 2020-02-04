@@ -32,6 +32,9 @@ export const logo = StyleSheet.create({
         color: text_color,
         lineHeight: 70,
     },
+    container: {
+        
+    }
 });
 
 export const inputs = StyleSheet.create({
@@ -44,7 +47,8 @@ export const inputs = StyleSheet.create({
         fontWeight: "bold",
         borderColor: text_color,
         borderWidth: 3,
-        padding: 5,
+        borderRadius: 3,
+        padding: 9,
         marginVertical: 10,
         backgroundColor: 'white',
     },

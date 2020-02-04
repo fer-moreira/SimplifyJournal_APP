@@ -15,22 +15,12 @@
     "United States Politics and Government",
     "World Health Organization",
     "Centers for Disease Control and Prevention",
-    "Fauci",
-    " Anthony S",
-    "Frieden",
-    " Thomas R",
-    "Lipkin",
-    " W Ian",
-    "Piot",
-    " Peter",
-    "Schaffner",
-    " William",
     "China",
     "Wuhan (China)"
   ],
   "article_title": "Wuhan Coronavirus Looks Increasingly Like a Pandemic, Experts Say",
   "article_description": "Rapidly rising caseloads alarm researchers, who fear the virus may make its way across the globe. But scientists cannot yet predict how many deaths may result.",
-  "article_image": "https://static01.nyt.com/images/2020/02/01/science/31virus-pandemic01/merlin_168190818_f060c3e8-ef3f-42e7-ad4f-7ee3c2668580-facebookJumbo.jpg",
+  "article_image": "https://static01.nyt.com/images/2020/02/02/world/02virus-pandemic-sub/02virus-pandemic-sub-facebookJumbo.jpg",
   "article_body": [
     {
       "is_img": false,
@@ -49,8 +39,9 @@
         {
           "start": 3,
           "steps": 20,
-          "type": "strong",
-          "text": "Donald G. McNeil Jr."
+          "type": "link",
+          "text": "Donald G. McNeil Jr.",
+          "href": "https://www.nytimes.com/by/donald-g-mcneil-jr"
         }
       ]
     },
@@ -86,13 +77,13 @@
     },
     {
       "is_img": false,
-      "content": "In the last three weeks, the number of lab-confirmed cases has soared from about 50 in China to 14,000 in 23 countries; there have been over 300 deaths, all but one in China.",
+      "content": "In the last three weeks, the number of lab-confirmed cases has soared from about 50 in China to more than 17,000 in at least 23 countries; there have been more than 360 deaths.",
       "props": [
         {
-          "start": 96,
-          "steps": 77,
+          "start": 106,
+          "steps": 69,
           "type": "link",
-          "text": "14,000 in 23 countries; there have been over 300 deaths, all but one in China",
+          "text": "17,000 in at least 23 countries; there have been more than 360 deaths",
           "href": "https://www.nytimes.com/2020/02/02/world/asia/china-coronavirus.html"
         }
       ]
@@ -114,13 +105,13 @@
     },
     {
       "is_img": false,
-      "content": "The 1918 “Spanish flu” killed only about 2.5 percent of its victims — but because it infected so many people and medical care was much cruder then, 20 to 50 million died.",
+      "content": "The 1918 “Spanish flu” killed only about 2.5 percent of its victims — but because it infected so many people and medical care was much cruder then, 20 million to 50 million died.",
       "props": [
         {
           "start": 148,
-          "steps": 16,
+          "steps": 24,
           "type": "link",
-          "text": "20 to 50 million",
+          "text": "20 million to 50 million",
           "href": "https://www.cdc.gov/flu/pandemic-resources/1918-pandemic-h1n1.html"
         }
       ]
@@ -175,7 +166,7 @@
     },
     {
       "is_img": false,
-      "content": "The virus has sickened more than 14,500 people in China and 23 other countries.",
+      "content": "The virus has sickened more than 17,300 people in China and 23 other countries.",
       "props": []
     },
     {
